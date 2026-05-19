@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title">
+  <title id="title">FullCourtHQ court operations software</title>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#2d145f"/>
+      <stop offset="1" stop-color="#160934"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <path d="M0 120h1200M0 300h1200M0 480h1200M260 0v630M600 0v630M940 0v630" stroke="#fff" stroke-opacity=".07" stroke-width="4"/>
+  <g transform="translate(72 74) scale(.9)">
+    <rect width="222" height="222" x="17" y="17" rx="45" fill="#2d145f" stroke="#fff" stroke-width="7"/>
+    <path d="M128 32v192M36 128h184M72 32v196M184 32v196" fill="none" stroke="#fff" stroke-width="5" opacity=".9"/>
+    <path d="M88 80a48 48 0 0 1 80 0M88 176a48 48 0 0 0 80 0" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+    <path d="M35 104h22v48H35M221 104h-22v48h22" fill="none" stroke="#df9f12" stroke-width="7"/>
+    <text x="66" y="151" fill="#fff" font-family="Arial Black, Arial, sans-serif" font-size="78" font-weight="900">F</text>
+    <text x="127" y="151" fill="#df9f12" font-family="Arial Black, Arial, sans-serif" font-size="78" font-weight="900">C</text>
+  </g>
+  <text x="330" y="190" fill="#fff" font-family="Arial Black, Arial, sans-serif" font-size="92" font-weight="900" letter-spacing="-4">FullCourt</text>
+  <text x="786" y="190" fill="#df9f12" font-family="Arial Black, Arial, sans-serif" font-size="92" font-weight="900" letter-spacing="-4">HQ</text>
+  <text x="78" y="390" fill="#fff" font-family="Arial, sans-serif" font-size="64" font-weight="800">Court operations software</text>
+  <text x="80" y="462" fill="#e9dff7" font-family="Arial, sans-serif" font-size="36" font-weight="700">Scheduling, rentals, payments, waivers, memberships, and reporting.</text>
+  <rect x="80" y="520" width="248" height="58" rx="8" fill="#df9f12"/>
+  <text x="114" y="559" fill="#21104a" font-family="Arial Black, Arial, sans-serif" font-size="25" font-weight="900">Book a demo</text>
+</svg>

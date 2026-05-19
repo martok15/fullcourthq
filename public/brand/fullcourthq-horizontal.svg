@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 672 168" role="img" aria-labelledby="title">
+  <title id="title">FullCourtHQ horizontal lockup</title>
+  <g transform="translate(0 12) scale(.56)">
+    <rect width="222" height="222" x="17" y="17" rx="45" fill="#2d145f"/>
+    <rect width="198" height="198" x="29" y="29" rx="34" fill="none" stroke="#fff" stroke-width="8"/>
+    <path d="M128 32v192M36 128h184M72 32v196M184 32v196" fill="none" stroke="#fff" stroke-width="5" opacity=".9"/>
+    <path d="M88 80a48 48 0 0 1 80 0M88 176a48 48 0 0 0 80 0" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+    <path d="M34 82c27 8 44 25 44 46S61 166 34 174M222 82c-27 8-44 25-44 46s17 38 44 46" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+    <path d="M35 104h22v48H35M221 104h-22v48h22" fill="none" stroke="#df9f12" stroke-width="7"/>
+    <text x="66" y="151" fill="#fff" font-family="Arial Black, Arial, sans-serif" font-size="78" font-weight="900">F</text>
+    <text x="127" y="151" fill="#df9f12" font-family="Arial Black, Arial, sans-serif" font-size="78" font-weight="900">C</text>
+  </g>
+  <text x="164" y="104" fill="#2d145f" font-family="Arial Black, Arial, sans-serif" font-size="76" font-weight="900" letter-spacing="-3">FullCourt</text>
+  <text x="514" y="104" fill="#df9f12" font-family="Arial Black, Arial, sans-serif" font-size="76" font-weight="900" letter-spacing="-3">HQ</text>
+</svg>

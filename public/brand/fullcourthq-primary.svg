@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 520" role="img" aria-labelledby="title">
+  <title id="title">FullCourtHQ primary logo</title>
+  <g transform="translate(192 34)">
+    <rect width="256" height="256" rx="54" fill="#2d145f"/>
+    <rect width="226" height="226" x="15" y="15" rx="40" fill="none" stroke="#fff" stroke-width="9"/>
+    <path d="M128 18v220M24 128h208M70 18v220M186 18v220" fill="none" stroke="#fff" stroke-width="6" opacity=".9"/>
+    <path d="M88 78a52 52 0 0 1 80 0M88 178a52 52 0 0 0 80 0" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+    <path d="M22 78c28 10 46 28 46 50s-18 40-46 50M234 78c-28 10-46 28-46 50s18 40 46 50" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+    <path d="M24 104h28v48H24M232 104h-28v48h28" fill="none" stroke="#df9f12" stroke-width="8"/>
+    <text x="61" y="154" fill="#fff" font-family="Arial Black, Arial, sans-serif" font-size="84" font-weight="900">F</text>
+    <text x="129" y="154" fill="#df9f12" font-family="Arial Black, Arial, sans-serif" font-size="84" font-weight="900">C</text>
+  </g>
+  <text x="52" y="414" fill="#2d145f" font-family="Arial Black, Arial, sans-serif" font-size="92" font-weight="900" letter-spacing="-4">FullCourt</text>
+  <text x="462" y="414" fill="#df9f12" font-family="Arial Black, Arial, sans-serif" font-size="92" font-weight="900" letter-spacing="-4">HQ</text>
+</svg>
