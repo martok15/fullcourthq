@@ -44,8 +44,11 @@ export const metadata: Metadata = {
     images: ["/brand/fullcourthq-og.svg"],
   },
   icons: {
-    icon: "/brand/fullcourthq-rounded-icon.png",
-    apple: "/brand/fullcourthq-rounded-icon.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "32x32" },
+    ],
+    apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
   },
 };
 
