@@ -6,6 +6,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fullcourthq.com";
 const title = "FullCourtHQ | Court Operations Software";
 const description =
   "FullCourtHQ is an all-in-one operations platform for organizations managing facilities, teams, members, schedules, payments, and reporting.";
+const previewImage = "/brand/fullcourthq-og-logo.png";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -29,10 +30,10 @@ export const metadata: Metadata = {
     siteName: "FullCourtHQ",
     images: [
       {
-        url: "/brand/fullcourthq-og.svg",
+        url: previewImage,
         width: 1200,
         height: 630,
-        alt: "FullCourtHQ court operations software",
+        alt: "FullCourtHQ logo",
       },
     ],
     type: "website",
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description,
-    images: ["/brand/fullcourthq-og.svg"],
+    images: [previewImage],
   },
   icons: {
     icon: [
