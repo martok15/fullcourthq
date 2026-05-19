@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
     return jsonError(validation.message, 400);
   }
 
-  const token = process.env.HUBSPOT_PRIVATE_APP_TOKEN;
+  const token = await getRuntimeEnv("HUBSPOT_PRIVATE_APP_TOKEN");
   if (!token) {
     return jsonError("Demo requests are not connected yet. Please email info@fullcourthq.com directly.", 503);
   }
@@ -356,6 +356,25 @@ function getHubSpotDealPipeline() {
 
 function getHubSpotDealStage() {
   return process.env.HUBSPOT_DEAL_STAGE?.trim() || DEFAULT_DEAL_STAGE;
+}
+
+async function getRuntimeEnv(name: string) {
+  const processValue = process.env[name]?.trim();
+  if (processValue) {
+    return processValue;
+  }
+
+  try {
+    const importCloudflareWorkers = new Function("specifier", "return import(specifier)") as (
+      specifier: string,
+    ) => Promise<{ env?: Record<string, unknown> }>;
+    const cloudflareWorkers = await importCloudflareWorkers("cloudflare:workers");
+    const bindingValue = cloudflareWorkers.env?.[name];
+
+    return typeof bindingValue === "string" && bindingValue.trim() ? bindingValue.trim() : null;
+  } catch {
+    return null;
+  }
 }
 
 type ValidDemoData = Extract<ReturnType<typeof validateDemoRequest>, { ok: true }>["data"];
