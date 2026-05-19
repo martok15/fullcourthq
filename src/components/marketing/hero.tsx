@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, BarChart3, Sparkles, TrendingUp, UsersRound } from "lucide-react";
+import { demoEmailHref } from "@/lib/contact";
 
 const valuePoints = [
   { label: "Simplify Operations", icon: Sparkles },
@@ -27,10 +28,10 @@ export function Hero() {
             The all-in-one platform that simplifies operations, empowers people, and helps organizations grow.
           </p>
           <div className="hero-actions">
-            <Link href="#demo" className="button button-gold hero-primary">
+            <a href={demoEmailHref} className="button button-gold hero-primary">
               Book a Demo
               <ArrowRight aria-hidden="true" size={18} />
-            </Link>
+            </a>
             <Link href="#features" className="button button-ghost">
               See How It Works
             </Link>

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { DemoRequestForm } from "@/components/demo-request-form";
+import { ArrowRight, Mail, MapPin, MessageSquareText } from "lucide-react";
+import { contactEmail, demoEmailHref } from "@/lib/contact";
 
 export function CTASection() {
   return (
@@ -14,18 +14,41 @@ export function CTASection() {
           <h2>Ready to take your operations to the next level?</h2>
           <p>Join organizations already saving time, increasing revenue, and growing their impact.</p>
           <div className="cta-actions">
-            <Link href="#demo-form" className="button button-gold">
+            <a href={demoEmailHref} className="button button-gold">
               Book a Demo
               <ArrowRight aria-hidden="true" size={18} />
-            </Link>
+            </a>
             <Link href="#pricing" className="button button-ghost">
               See Pricing
             </Link>
           </div>
         </div>
-        <div className="cta-form-card" id="demo-form">
+        <div className="cta-contact-card">
           <p className="form-kicker">Request a walkthrough</p>
-          <DemoRequestForm />
+          <div className="contact-card-body">
+            <div className="contact-icon" aria-hidden="true">
+              <Mail size={24} />
+            </div>
+            <h3>Tell us what you’re building.</h3>
+            <p>
+              Send a quick note with your organization, location, number of courts or facilities, and the
+              operations you want to streamline.
+            </p>
+            <a className="contact-email-link" href={demoEmailHref}>
+              {contactEmail}
+              <ArrowRight aria-hidden="true" size={18} />
+            </a>
+            <div className="contact-prompts" aria-label="Suggested email details">
+              <span>
+                <MapPin aria-hidden="true" size={17} />
+                Organization and location
+              </span>
+              <span>
+                <MessageSquareText aria-hidden="true" size={17} />
+                Scheduling, payments, rentals, reporting
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
+import { contactEmail, demoEmailHref } from "@/lib/contact";
 
 const footerLinks = [
   { label: "Features", href: "#features" },
   { label: "Solutions", href: "#solutions" },
   { label: "Pricing", href: "#pricing" },
-  { label: "Book a Demo", href: "#demo" },
+  { label: "Book a Demo", href: demoEmailHref },
 ];
 
 export function Footer() {
@@ -35,8 +36,8 @@ export function Footer() {
               </Link>
             ))}
           </nav>
-          <a className="footer-email" href="mailto:info@fullcourthq.com">
-            info@fullcourthq.com
+          <a className="footer-email" href={`mailto:${contactEmail}`}>
+            {contactEmail}
           </a>
         </div>
       </div>

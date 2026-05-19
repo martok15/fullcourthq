@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { demoEmailHref } from "@/lib/contact";
 
 const navItems = [
   { label: "Features", href: "#features" },
@@ -32,9 +33,9 @@ export function Header() {
         </nav>
 
         <div className="header-actions">
-          <Link className="button button-gold header-demo" href="#demo">
+          <a className="button button-gold header-demo" href={demoEmailHref}>
             Book a Demo
-          </Link>
+          </a>
           <button
             className="mobile-menu-button"
             type="button"
@@ -55,9 +56,9 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            <Link className="button button-gold" href="#demo" onClick={() => setOpen(false)}>
+            <a className="button button-gold" href={demoEmailHref} onClick={() => setOpen(false)}>
               Book a Demo
-            </Link>
+            </a>
           </nav>
         </div>
       ) : null}
