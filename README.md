@@ -1,6 +1,6 @@
-# FullCourtHQ Sales Site
+# FullCourtHQ Marketing Site
 
-Marketing site for FullCourtHQ, the court operations platform for scheduling, rentals, payments, memberships, waivers, and reporting.
+Marketing site for FullCourtHQ, the connected operating system for sports facilities and clubs. The site covers facility scheduling, programs, teams, billing, communications, tournaments, and the parent and coach experience.
 
 ## Local Development
 
