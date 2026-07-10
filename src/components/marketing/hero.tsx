@@ -1,92 +1,111 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BarChart3, Sparkles, TrendingUp, UsersRound } from "lucide-react";
-import { demoEmailHref } from "@/lib/contact";
+import { ArrowRight, Check, ShieldCheck } from "lucide-react";
 
-const valuePoints = [
-  { label: "Simplify Operations", icon: Sparkles },
-  { label: "Empower People", icon: UsersRound },
-  { label: "Gain Insights", icon: BarChart3 },
-  { label: "Drive Growth", icon: TrendingUp },
+const platformAreas = [
+  { name: "Facility", detail: "Courts, schedules, and rentals" },
+  { name: "Programs", detail: "Training, clinics, and registration" },
+  { name: "Club", detail: "Teams, rosters, and competition" },
+  { name: "Billing", detail: "Payments, plans, and access" },
+  { name: "Families", detail: "Schedules, messages, and actions" },
 ];
 
 export function Hero() {
   return (
-    <section className="hero-section">
-      <div className="court-pattern" aria-hidden="true" />
+    <section className="hero-section" aria-labelledby="hero-title">
+      <div className="hero-glow" aria-hidden="true" />
       <div className="site-shell hero-grid">
         <div className="hero-copy">
-          <p className="eyebrow eyebrow-gold">Built for modern operations</p>
-          <h1>
-            Operate.
-            <br />
-            Manage.
-            <br />
-            <span>Grow.</span>
+          <p className="eyebrow eyebrow-gold">Sports facility &amp; club operating system</p>
+          <h1 id="hero-title">
+            <span>Run the facility.</span>
+            <span>Grow the programs.</span>
+            <span>Keep every team connected.</span>
           </h1>
-          <p>
-            The all-in-one platform that simplifies operations, empowers people, and helps organizations grow.
+          <p className="hero-lede">
+            FullCourtHQ brings scheduling, registrations, teams, billing, communications, and the family experience
+            into one connected platform.
           </p>
           <div className="hero-actions">
-            <a href={demoEmailHref} className="button button-gold hero-primary">
-              Book a Demo
+            <Link href="#demo" className="button button-gold hero-primary">
+              See the platform in action
               <ArrowRight aria-hidden="true" size={18} />
-            </a>
-            <Link href="#features" className="button button-ghost">
-              See How It Works
+            </Link>
+            <Link href="#product-tour" className="button button-ghost">
+              Explore the product
             </Link>
           </div>
-          <div className="hero-values" aria-label="Platform value points">
-            {valuePoints.map((point) => {
-              const Icon = point.icon;
-              return (
-                <span key={point.label}>
-                  <Icon aria-hidden="true" size={17} />
-                  {point.label}
-                </span>
-              );
-            })}
-          </div>
+          <p className="hero-fit-note">
+            <ShieldCheck aria-hidden="true" size={20} />
+            Built for multi-court facilities, clubs, and program operators.
+          </p>
         </div>
-        <HeroProductMockup />
+
+        <HeroProductVisual />
+      </div>
+
+      <div className="site-shell platform-ribbon" id="platform" aria-label="FullCourtHQ platform areas">
+        {platformAreas.map((area) => (
+          <Link href="#product-tour" key={area.name}>
+            <span className="platform-ribbon-check" aria-hidden="true">
+              <Check size={15} strokeWidth={2.5} />
+            </span>
+            <span>
+              <strong>{area.name}</strong>
+              <small>{area.detail}</small>
+            </span>
+          </Link>
+        ))}
       </div>
     </section>
   );
 }
 
-function HeroProductMockup() {
+function HeroProductVisual() {
   return (
-    <div className="hero-product" aria-label="FullCourtHQ app screenshots">
-      <div className="laptop-shell">
-        <div className="laptop-toolbar">
-          <span />
-          <span />
-          <span />
-          <strong>Live product screen</strong>
-        </div>
-        <div className="screenshot-frame desktop-screenshot-frame">
-          <Image
-            src="/product/fullcourthq-calendar-desktop.png"
-            alt="FullCourtHQ public calendar screen showing facilities, courts, availability, and day controls"
-            width={1280}
-            height={720}
-            priority
-          />
-        </div>
-      </div>
+    <div className="hero-product" aria-label="Real FullCourtHQ product screens for administrators, parents, and coaches">
+      <figure className="hero-dashboard-frame">
+        <figcaption>
+          <span>Operations command center</span>
+          <span>Real product view</span>
+        </figcaption>
+        <Image
+          src="/product/fullcourthq-admin-dashboard.png"
+          alt="FullCourtHQ administrator dashboard showing court status, today’s bookings, and weekly utilization"
+          width={1280}
+          height={720}
+          sizes="(max-width: 860px) 94vw, 58vw"
+          loading="eager"
+        />
+      </figure>
 
-      <div className="mobile-shell">
-        <div className="mobile-notch" />
-        <div className="screenshot-frame mobile-screenshot-frame">
+      <figure className="hero-phone hero-phone-parent">
+        <figcaption>Parent portal</figcaption>
+        <div className="hero-phone-screen">
           <Image
-            src="/product/fullcourthq-booking-mobile.png"
-            alt="Mobile FullCourtHQ booking screen with selected facility time, renter details, and checkout action"
-            width={390}
-            height={740}
-            priority
+            src="/product/rdc-parent-dashboard.png"
+            alt="Tenant-branded FullCourtHQ parent portal home screen with payment and upcoming game actions"
+            width={780}
+            height={1688}
+            sizes="(max-width: 860px) 35vw, 15vw"
+            loading="eager"
           />
         </div>
-      </div>
+      </figure>
+
+      <figure className="hero-phone hero-phone-coach">
+        <figcaption>Coach portal</figcaption>
+        <div className="hero-phone-screen">
+          <Image
+            src="/product/rdc-coach-results.png"
+            alt="Tenant-branded FullCourtHQ coach portal showing an upcoming team event and availability actions"
+            width={780}
+            height={1688}
+            sizes="(max-width: 860px) 35vw, 15vw"
+            loading="eager"
+          />
+        </div>
+      </figure>
     </div>
   );
 }

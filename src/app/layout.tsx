@@ -1,28 +1,48 @@
-import type { Metadata } from "next";
-import { Geist_Mono, Space_Grotesk } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fullcourthq.com";
-const title = "FullCourtHQ | Court Operations Software";
+const title = "FullCourtHQ | Sports Facility & Club Operating System";
 const description =
-  "FullCourtHQ is an all-in-one operations platform for organizations managing facilities, teams, members, schedules, payments, and reporting.";
+  "Run facility scheduling, programs, teams, billing, communications, and the family experience from one connected sports operations platform.";
 const previewImage = "/brand/fullcourthq-og-logo.png";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+export const viewport: Viewport = {
+  colorScheme: "dark light",
+  themeColor: "#07091c",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title,
+  title: {
+    default: title,
+    template: "%s | FullCourtHQ",
+  },
   description,
   applicationName: "FullCourtHQ",
+  category: "Sports operations software",
+  keywords: [
+    "sports facility software",
+    "club management software",
+    "court scheduling",
+    "sports program registration",
+    "team billing",
+    "parent coach portal",
+  ],
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title,
     description,
@@ -33,7 +53,7 @@ export const metadata: Metadata = {
         url: previewImage,
         width: 1200,
         height: 630,
-        alt: "FullCourtHQ logo",
+        alt: "FullCourtHQ sports facility and club operating system",
       },
     ],
     type: "website",
@@ -53,17 +73,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${spaceGrotesk.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className={spaceGrotesk.variable}>
+      <body>{children}</body>
     </html>
   );
 }
