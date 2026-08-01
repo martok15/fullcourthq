@@ -6,10 +6,21 @@ export type InfoPageSection = {
   title: string;
   paragraphs?: readonly string[];
   bullets?: readonly string[];
+  resources?: readonly {
+    href: string;
+    label: string;
+    description: string;
+  }[];
 };
 
 type InfoPageProps = {
-  currentPath: "/security" | "/privacy" | "/accessibility" | "/terms";
+  currentPath:
+    | "/security"
+    | "/privacy"
+    | "/community-standards"
+    | "/support"
+    | "/accessibility"
+    | "/terms";
   eyebrow: string;
   title: string;
   introduction: string;
@@ -22,6 +33,8 @@ type InfoPageProps = {
 const informationLinks = [
   { href: "/security", label: "Security" },
   { href: "/privacy", label: "Privacy" },
+  { href: "/community-standards", label: "Community standards" },
+  { href: "/support", label: "Support" },
   { href: "/accessibility", label: "Accessibility" },
   { href: "/terms", label: "Terms" },
 ] as const;
@@ -81,6 +94,19 @@ export function InfoPage({
                     {section.bullets.map((bullet) => (
                       <li className="info-list-item" key={bullet}>
                         {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+
+                {section.resources ? (
+                  <ul className="info-resource-list">
+                    {section.resources.map((resource) => (
+                      <li key={resource.href}>
+                        <a className="info-resource-link" href={resource.href}>
+                          {resource.label}
+                        </a>
+                        <p>{resource.description}</p>
                       </li>
                     ))}
                   </ul>

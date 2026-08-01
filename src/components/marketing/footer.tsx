@@ -18,6 +18,8 @@ const footerGroups = [
     links: [
       ["Security", "/security"],
       ["Privacy", "/privacy"],
+      ["Community standards", "/community-standards"],
+      ["Support", "/support"],
       ["Accessibility", "/accessibility"],
       ["Terms", "/terms"],
     ],
