@@ -1537,7 +1537,7 @@ section[id] {
   font-size: 0.72rem;
 }
 
-/* Trust, privacy, terms, and accessibility pages */
+/* Trust, legal, safety, and support pages */
 .info-shell {
   width: min(calc(100% - 48px), 1060px);
   margin-inline: auto;
@@ -1669,6 +1669,36 @@ section[id] {
   gap: 10px;
   margin: 18px 0 0;
   padding-left: 22px;
+}
+
+.info-resource-list {
+  display: grid;
+  gap: 12px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.info-resource-list li {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+
+.info-resource-link {
+  color: var(--purple);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: rgba(67, 20, 134, 0.25);
+  text-underline-offset: 4px;
+}
+
+.info-resource-list p {
+  margin: 7px 0 0;
+  color: var(--slate);
+  font-size: 0.84rem;
+  line-height: 1.6;
 }
 
 .info-note {
