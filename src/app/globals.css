@@ -236,6 +236,10 @@ section[id] {
   height: 44px;
 }
 
+.marketing-header .brand-lockup img {
+  display: none;
+}
+
 .brand-lockup b {
   color: var(--gold);
   font-weight: 700;
