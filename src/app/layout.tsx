@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { Barlow_Semi_Condensed, IBM_Plex_Mono, Source_Sans_3, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fullcourthq.com";
@@ -14,9 +14,29 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
+const sourceSans = Source_Sans_3({
+  variable: "--font-source-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const barlowSemiCondensed = Barlow_Semi_Condensed({
+  variable: "--font-barlow-semi-condensed",
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  display: "swap",
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  variable: "--font-ibm-plex-mono",
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  display: "swap",
+});
+
 export const viewport: Viewport = {
   colorScheme: "dark light",
-  themeColor: "#07091c",
+  themeColor: "#f7f8fb",
 };
 
 export const metadata: Metadata = {
@@ -75,7 +95,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={spaceGrotesk.variable}>
+    <html
+      lang="en"
+      className={`${spaceGrotesk.variable} ${sourceSans.variable} ${barlowSemiCondensed.variable} ${ibmPlexMono.variable}`}
+    >
       <body>{children}</body>
     </html>
   );

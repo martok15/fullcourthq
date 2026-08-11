@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { BrandLockup } from "@/components/marketing/brand-lockup";
 
 const navItems = [
-  { label: "Platform", href: "#platform" },
+  { label: "Operating flow", href: "#workflows" },
   { label: "Product tour", href: "#product-tour" },
   { label: "Who it’s for", href: "#solutions" },
   { label: "Pricing", href: "#pricing" },
@@ -34,13 +34,13 @@ export function Header() {
   const closeMenu = () => setOpen(false);
 
   return (
-    <header className="marketing-header">
-      <div className="site-shell header-bar">
-        <Link className="brand-link" href="/" aria-label="FullCourtHQ home" onClick={closeMenu}>
+    <header className="ops-header">
+      <div className="site-shell ops-header__bar">
+        <Link className="ops-header__brand" href="/" aria-label="FullCourtHQ home" onClick={closeMenu}>
           <BrandLockup />
         </Link>
 
-        <nav className="desktop-nav" aria-label="Main navigation">
+        <nav className="ops-header__nav" aria-label="Main navigation">
           {navItems.map((item) => (
             <Link key={item.href} href={item.href}>
               {item.label}
@@ -48,14 +48,14 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="header-actions">
-          <Link className="button button-gold header-demo" href="#demo">
-            See the platform
+        <div className="ops-header__actions">
+          <Link className="ops-button ops-button--primary ops-header__cta" href="#demo">
+            Book a walkthrough
             <ArrowUpRight aria-hidden="true" size={17} strokeWidth={2} />
           </Link>
           <button
             ref={menuButtonRef}
-            className="mobile-menu-button"
+            className="ops-header__menu-button"
             type="button"
             aria-label={open ? "Close navigation menu" : "Open navigation menu"}
             aria-controls="mobile-navigation"
@@ -67,15 +67,20 @@ export function Header() {
         </div>
       </div>
 
-      <div className="mobile-nav-wrap" data-open={open} aria-hidden={!open} inert={open ? undefined : true}>
-        <nav id="mobile-navigation" className="mobile-nav site-shell" aria-label="Mobile navigation">
+      <div className="ops-header__mobile-wrap" data-open={open} aria-hidden={!open} inert={open ? undefined : true}>
+        <nav id="mobile-navigation" className="ops-header__mobile-nav site-shell" aria-label="Mobile navigation">
           {navItems.map((item) => (
             <Link key={item.href} href={item.href} onClick={closeMenu} tabIndex={open ? 0 : -1}>
               {item.label}
             </Link>
           ))}
-          <Link className="button button-gold" href="#demo" onClick={closeMenu} tabIndex={open ? 0 : -1}>
-            See the platform
+          <Link
+            className="ops-button ops-button--primary"
+            href="#demo"
+            onClick={closeMenu}
+            tabIndex={open ? 0 : -1}
+          >
+            Book a walkthrough
             <ArrowUpRight aria-hidden="true" size={17} />
           </Link>
         </nav>

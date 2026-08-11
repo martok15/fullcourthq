@@ -1,111 +1,110 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Check, ShieldCheck } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 
-const platformAreas = [
-  { name: "Facility", detail: "Courts, schedules, and rentals" },
-  { name: "Programs", detail: "Training, clinics, and registration" },
-  { name: "Club", detail: "Teams, rosters, and competition" },
-  { name: "Billing", detail: "Payments, plans, and access" },
-  { name: "Families", detail: "Schedules, messages, and actions" },
+const operatingAreas = [
+  { index: "01", name: "Facility", detail: "Courts & availability" },
+  { index: "02", name: "Programs", detail: "Sessions & registration" },
+  { index: "03", name: "Teams", detail: "Rosters & competition" },
+  { index: "04", name: "Billing", detail: "Payments & access" },
+  { index: "05", name: "Families", detail: "Schedules & actions" },
+];
+
+const daySignals = [
+  { label: "On court now", value: "3 of 4 courts open" },
+  { label: "Next handoff", value: "Skills clinic · 5:30 PM" },
+  { label: "Family action", value: "Payment setup required" },
 ];
 
 export function Hero() {
   return (
-    <section className="hero-section" aria-labelledby="hero-title">
-      <div className="hero-glow" aria-hidden="true" />
-      <div className="site-shell hero-grid">
-        <div className="hero-copy">
-          <p className="eyebrow eyebrow-gold">Sports facility &amp; club operating system</p>
-          <h1 id="hero-title">
-            <span>Run the facility.</span>
-            <span>Grow the programs.</span>
-            <span>Keep every team connected.</span>
-          </h1>
-          <p className="hero-lede">
-            FullCourtHQ brings scheduling, registrations, teams, billing, communications, and the family experience
-            into one connected platform.
-          </p>
-          <div className="hero-actions">
-            <Link href="#demo" className="button button-gold hero-primary">
-              See the platform in action
-              <ArrowRight aria-hidden="true" size={18} />
-            </Link>
-            <Link href="#product-tour" className="button button-ghost">
-              Explore the product
-            </Link>
+    <section className="ops-hero" aria-labelledby="hero-title">
+      <div className="ops-hero__schedule-grid" aria-hidden="true" />
+      <div className="site-shell">
+        <div className="ops-hero__grid">
+          <div className="ops-hero__copy">
+            <p className="ops-kicker">Sports facility &amp; club operations</p>
+            <h1 id="hero-title">
+              <span>The operating system</span>
+              <span>behind your</span>
+              <span className="ops-hero__title-accent">sports day.</span>
+            </h1>
+            <p className="ops-hero__lede">
+              Connect court availability, programs, teams, billing, and family communication in one shared operating
+              record.
+            </p>
+            <div className="ops-hero__actions">
+              <Link href="#demo" className="ops-button ops-button--primary">
+                Book a walkthrough
+                <ArrowRight aria-hidden="true" size={18} />
+              </Link>
+              <Link href="#product-tour" className="ops-button ops-button--secondary">
+                Tour the real product
+              </Link>
+            </div>
+            <p className="ops-hero__proof">
+              <CheckCircle2 aria-hidden="true" size={18} />
+              Real product screens. Demo data. Built for multi-court operations.
+            </p>
           </div>
-          <p className="hero-fit-note">
-            <ShieldCheck aria-hidden="true" size={20} />
-            Built for multi-court facilities, clubs, and program operators.
-          </p>
+
+          <HeroOperatingBoard />
         </div>
 
-        <HeroProductVisual />
-      </div>
-
-      <div className="site-shell platform-ribbon" id="platform" aria-label="FullCourtHQ platform areas">
-        {platformAreas.map((area) => (
-          <Link href="#product-tour" key={area.name}>
-            <span className="platform-ribbon-check" aria-hidden="true">
-              <Check size={15} strokeWidth={2.5} />
-            </span>
-            <span>
-              <strong>{area.name}</strong>
-              <small>{area.detail}</small>
-            </span>
-          </Link>
-        ))}
+        <div className="ops-flow" id="platform">
+          <div className="ops-flow__lead">
+            <span>One operating record</span>
+            <strong>Every role sees what it needs.</strong>
+          </div>
+          <ol className="ops-flow__track" aria-label="Connected FullCourtHQ product areas">
+            {operatingAreas.map((area) => (
+              <li key={area.name}>
+                <span className="ops-flow__marker" aria-hidden="true" />
+                <span className="ops-flow__index">{area.index}</span>
+                <strong>{area.name}</strong>
+                <small>{area.detail}</small>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
   );
 }
 
-function HeroProductVisual() {
+function HeroOperatingBoard() {
   return (
-    <div className="hero-product" aria-label="Real FullCourtHQ product screens for administrators, parents, and coaches">
-      <figure className="hero-dashboard-frame">
-        <figcaption>
-          <span>Operations command center</span>
-          <span>Real product view</span>
-        </figcaption>
-        <Image
-          src="/product/fullcourthq-admin-dashboard.png"
-          alt="FullCourtHQ administrator dashboard showing court status, today’s bookings, and weekly utilization"
-          width={1280}
-          height={720}
-          sizes="(max-width: 860px) 94vw, 58vw"
-          loading="eager"
-        />
-      </figure>
-
-      <figure className="hero-phone hero-phone-parent">
-        <figcaption>Parent portal</figcaption>
-        <div className="hero-phone-screen">
-          <Image
-            src="/product/rdc-parent-dashboard.png"
-            alt="Tenant-branded FullCourtHQ parent portal home screen with payment and upcoming game actions"
-            width={780}
-            height={1688}
-            sizes="(max-width: 860px) 35vw, 15vw"
-            loading="eager"
-          />
+    <div className="ops-hero__product" aria-label="A real FullCourtHQ administrator dashboard and operating-day summary">
+      <div className="ops-console">
+        <div className="ops-console__bar">
+          <span className="ops-console__status">
+            <span aria-hidden="true" />
+            Demo operating day
+          </span>
+          <time dateTime="2026-05-18">Mon · May 18 · America/Chicago</time>
         </div>
-      </figure>
 
-      <figure className="hero-phone hero-phone-coach">
-        <figcaption>Coach portal</figcaption>
-        <div className="hero-phone-screen">
+        <figure className="ops-console__screen">
           <Image
-            src="/product/rdc-coach-results.png"
-            alt="Tenant-branded FullCourtHQ coach portal showing an upcoming team event and availability actions"
-            width={780}
-            height={1688}
-            sizes="(max-width: 860px) 35vw, 15vw"
-            loading="eager"
+            src="/product/fullcourthq-admin-dashboard.png"
+            alt="FullCourtHQ administrator dashboard showing court status, today’s bookings, and weekly utilization"
+            width={1280}
+            height={720}
+            sizes="(max-width: 860px) 94vw, (max-width: 1120px) 84vw, 58vw"
+            preload
           />
-        </div>
-      </figure>
+          <figcaption>Real FullCourtHQ product screen using a demo workspace</figcaption>
+        </figure>
+
+        <ul className="ops-console__signals" aria-label="Example operating-day signals">
+          {daySignals.map((signal) => (
+            <li key={signal.label}>
+              <span>{signal.label}</span>
+              <strong>{signal.value}</strong>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

@@ -51,8 +51,8 @@ export default function Home() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
         />
         <Hero />
-        <ProductTour />
         <ConnectedWorkflowSection />
+        <ProductTour />
         <SolutionsSection />
         <PricingSection />
         <TrustSection />

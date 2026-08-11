@@ -16,10 +16,30 @@ import {
 } from "lucide-react";
 
 const workflowSteps = [
-  ["01", "Build the program", "Set sessions, courts, capacity, trainers, player fit, and pricing."],
-  ["02", "Publish registration", "Give families a clear, mobile path from discovery to the right session."],
-  ["03", "Run the roster", "Keep registrations, payment status, credits, moves, and trainer details together."],
-  ["04", "See the operation", "Connect program activity back to the shared schedule and revenue picture."],
+  {
+    number: "01",
+    context: "Facility",
+    title: "Open the court time",
+    body: "Set the court, session window, capacity, trainer, and operating rules.",
+  },
+  {
+    number: "02",
+    context: "Program",
+    title: "Publish the right session",
+    body: "Turn that availability into a clinic with player fit, member pricing, and registration.",
+  },
+  {
+    number: "03",
+    context: "Family",
+    title: "Make the next action clear",
+    body: "Families see the eligible player, session details, price, and saved household information.",
+  },
+  {
+    number: "04",
+    context: "Operations",
+    title: "Keep the result connected",
+    body: "Staff see the roster, payment status, schedule impact, and revenue without reconciling tools.",
+  },
 ];
 
 const audiences = [
@@ -98,39 +118,45 @@ const faqs = [
 
 export function ConnectedWorkflowSection() {
   return (
-    <section className="workflow-section" id="workflows" aria-labelledby="workflow-heading">
+    <section className="ops-workflow" id="workflows" aria-labelledby="workflow-heading">
       <div className="site-shell">
-        <div className="section-heading section-heading--split">
-          <div>
-            <p className="eyebrow eyebrow-gold">Connected workflows</p>
-            <h2 id="workflow-heading">One platform. Every part of the operation in sync.</h2>
+        <header className="ops-workflow__header">
+          <div className="ops-workflow__heading">
+            <p className="ops-kicker">Connected operating flow</p>
+            <h2 id="workflow-heading">
+              Court time becomes a program. Families see what’s next.
+            </h2>
           </div>
           <p>
-            FullCourtHQ is designed around the handoffs between schedules, people, payments, and communication—not a
-            collection of isolated feature pages.
+            FullCourtHQ keeps the handoffs between schedules, people, payments, and communication attached to the same
+            operating record.
           </p>
-        </div>
+        </header>
 
-        <div className="workflow-story">
-          <div className="workflow-copy">
-            <p className="workflow-kicker">Example workflow · Programs and training</p>
-            <h3>Take a program from court time to family registration.</h3>
+        <div className="ops-workflow__board">
+          <div className="ops-workflow__story">
+            <p className="ops-workflow__context">Example · Programs and training</p>
+            <h3>Follow one change across the operation.</h3>
             <ol>
-              {workflowSteps.map(([number, title, body]) => (
-                <li key={number}>
-                  <span>{number}</span>
+              {workflowSteps.map((step) => (
+                <li key={step.number}>
+                  <span className="ops-workflow__number">{step.number}</span>
                   <div>
-                    <strong>{title}</strong>
-                    <p>{body}</p>
+                    <span className="ops-workflow__step-context">{step.context}</span>
+                    <strong>{step.title}</strong>
+                    <p>{step.body}</p>
                   </div>
                 </li>
               ))}
             </ol>
           </div>
 
-          <div className="workflow-visual" aria-label="Real scheduling and training screens">
-            <figure className="workflow-desktop">
-              <figcaption>Shared facility calendar</figcaption>
+          <div className="ops-workflow__visual" aria-label="Real scheduling and training screens">
+            <figure className="ops-workflow__desktop">
+              <figcaption>
+                <span>Operator view</span>
+                <strong>Shared facility calendar</strong>
+              </figcaption>
               <Image
                 src="/product/fullcourthq-calendar-desktop.png"
                 alt="FullCourtHQ facility calendar with courts, filters, dates, and available time"
@@ -139,9 +165,9 @@ export function ConnectedWorkflowSection() {
                 sizes="(max-width: 900px) 92vw, 55vw"
               />
             </figure>
-            <figure className="workflow-mobile">
+            <figure className="ops-workflow__mobile">
               <figcaption>Family registration</figcaption>
-              <div>
+              <div className="ops-workflow__mobile-screen">
                 <Image
                   src="/product/rdc-training-detail.png"
                   alt="Tenant-branded mobile training registration screen showing session, player fit, availability, and pricing"
@@ -152,6 +178,19 @@ export function ConnectedWorkflowSection() {
               </div>
             </figure>
           </div>
+        </div>
+
+        <div className="ops-workflow__roles" aria-label="How the shared record is translated by role">
+          <span>Same record, translated by role</span>
+          <p>
+            <strong>Operators</strong> availability &amp; roster
+          </p>
+          <p>
+            <strong>Coaches</strong> session readiness
+          </p>
+          <p>
+            <strong>Families</strong> registration &amp; payment
+          </p>
         </div>
       </div>
     </section>
