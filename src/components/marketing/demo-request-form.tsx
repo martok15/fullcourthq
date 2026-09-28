@@ -1,27 +1,13 @@
 "use client";
 
-import { ArrowRight, Mail } from "lucide-react";
-import { useState } from "react";
+import { ArrowRight, CircleCheck, LoaderCircle, Mail } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { contactEmail } from "@/lib/contact";
+import { focusOptions, organizationTypes, validateDemoRequest } from "@/lib/demo-request";
+import type { DemoRequest, DemoRequestErrors } from "@/lib/demo-request";
 
-const focusOptions = [
-  "Facility scheduling",
-  "Programs and registration",
-  "Club and team operations",
-  "Billing and payments",
-  "Parent and coach experience",
-];
-
-type FormValues = {
-  name: string;
-  email: string;
-  organization: string;
-  role: string;
-  organizationType: string;
-  focus: string[];
-  message: string;
-};
+type FormValues = DemoRequest;
 
 const initialValues: FormValues = {
   name: "",
@@ -35,8 +21,16 @@ const initialValues: FormValues = {
 
 export function DemoRequestForm() {
   const [values, setValues] = useState(initialValues);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<DemoRequestErrors>({});
   const [status, setStatus] = useState("");
+  const [state, setState] = useState<"idle" | "sending" | "sent">("idle");
+  const honeypotRef = useRef<HTMLInputElement>(null);
+  const successRef = useRef<HTMLDivElement>(null);
+
+  // Move focus to the confirmation so screen reader and keyboard users land on it.
+  useEffect(() => {
+    if (state === "sent") successRef.current?.focus();
+  }, [state]);
 
   function updateField(field: keyof FormValues, value: string) {
     setValues((current) => ({ ...current, [field]: value }));
@@ -53,49 +47,62 @@ export function DemoRequestForm() {
     setErrors((current) => ({ ...current, focus: "" }));
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (state === "sending") return;
 
-    const nextErrors: Record<string, string> = {};
-    if (!values.name.trim()) nextErrors.name = "Add your name.";
-    if (!values.email.trim()) {
-      nextErrors.email = "Add your work email.";
-    } else if (!/^\S+@\S+\.\S+$/.test(values.email)) {
-      nextErrors.email = "Use a complete email address.";
-    }
-    if (!values.organization.trim()) nextErrors.organization = "Add your organization.";
-    if (!values.organizationType) nextErrors.organizationType = "Choose the closest organization type.";
-    if (values.focus.length === 0) nextErrors.focus = "Choose at least one area to explore.";
-
+    const nextErrors = validateDemoRequest(values);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) {
       setStatus("A few details still need your attention.");
       return;
     }
 
-    const subject = encodeURIComponent(`FullCourtHQ walkthrough — ${values.organization}`);
-    const body = encodeURIComponent(
-      [
-        "Hi FullCourtHQ team,",
-        "",
-        "I’d like to schedule a platform walkthrough.",
-        "",
-        `Name: ${values.name}`,
-        `Work email: ${values.email}`,
-        `Organization: ${values.organization}`,
-        `Role: ${values.role || "Not provided"}`,
-        `Organization type: ${values.organizationType}`,
-        `Areas to explore: ${values.focus.join(", ")}`,
-        `Additional context: ${values.message || "None provided"}`,
-      ].join("\n"),
-    );
+    setState("sending");
+    setStatus("Sending your request…");
 
-    setStatus("Opening your email app with the request filled in. Review it, then press send.");
-    window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
+    try {
+      const response = await fetch("/api/demo-request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...values, company_website: honeypotRef.current?.value ?? "" }),
+      });
+      const result = (await response.json().catch(() => ({}))) as { error?: string; errors?: DemoRequestErrors };
+
+      if (!response.ok) {
+        setErrors(result.errors ?? {});
+        setStatus(result.error ?? `We couldn’t send your request just now. Please email ${contactEmail}.`);
+        setState("idle");
+        return;
+      }
+
+      setStatus("");
+      setState("sent");
+    } catch {
+      setStatus(`We couldn’t reach our server. Check your connection, or email ${contactEmail}.`);
+      setState("idle");
+    }
+  }
+
+  if (state === "sent") {
+    return (
+      <div className="demo-form-success" ref={successRef} tabIndex={-1} role="status">
+        <CircleCheck aria-hidden="true" size={40} />
+        <h4>Thanks, {values.name.split(/\s+/)[0]}. Your request is in.</h4>
+        <p>
+          We’ll reply to <strong>{values.email}</strong> to set up a time that works for you.
+        </p>
+      </div>
+    );
   }
 
   return (
-    <form className="demo-form" onSubmit={handleSubmit} noValidate>
+    <form className="demo-form" onSubmit={handleSubmit} noValidate aria-busy={state === "sending"}>
+      <div className="demo-form-trap" aria-hidden="true">
+        <label htmlFor="demo-company-website">Leave this field empty</label>
+        <input ref={honeypotRef} id="demo-company-website" name="company_website" tabIndex={-1} autoComplete="off" />
+      </div>
+
       <div className="demo-form-grid">
         <Field label="Name" error={errors.name} htmlFor="demo-name">
           <input
@@ -134,7 +141,7 @@ export function DemoRequestForm() {
           />
         </Field>
 
-        <Field label="Your role (optional)" htmlFor="demo-role">
+        <Field label="Your role (optional)" error={errors.role} htmlFor="demo-role">
           <input
             id="demo-role"
             name="role"
@@ -159,12 +166,9 @@ export function DemoRequestForm() {
             aria-describedby={errors.organizationType ? "demo-organization-type-error" : undefined}
           >
             <option value="">Select one</option>
-            <option>Sports facility with club programs</option>
-            <option>Multi-court facility</option>
-            <option>Youth sports club</option>
-            <option>Training academy</option>
-            <option>Tournament or event operator</option>
-            <option>Other sports organization</option>
+            {organizationTypes.map((type) => (
+              <option key={type}>{type}</option>
+            ))}
           </select>
         </Field>
       </div>
@@ -192,7 +196,7 @@ export function DemoRequestForm() {
         ) : null}
       </fieldset>
 
-      <Field label="Anything we should know? (optional)" htmlFor="demo-message" wide>
+      <Field label="Anything we should know? (optional)" error={errors.message} htmlFor="demo-message" wide>
         <textarea
           id="demo-message"
           name="message"
@@ -204,13 +208,19 @@ export function DemoRequestForm() {
       </Field>
 
       <div className="demo-form-submit-row">
-        <button className="button button-gold" type="submit">
-          Build my walkthrough request
-          <ArrowRight aria-hidden="true" size={18} />
+        <button className="btn btn--gold" type="submit" disabled={state === "sending"}>
+          {state === "sending" ? (
+            <>
+              <LoaderCircle className="demo-form-spinner" aria-hidden="true" size={18} />
+              Sending…
+            </>
+          ) : (
+            <>
+              Send walkthrough request
+              <ArrowRight aria-hidden="true" size={18} />
+            </>
+          )}
         </button>
-        <p>
-          This opens a pre-filled email for you to review and send. Nothing is submitted automatically.
-        </p>
       </div>
 
       <p className="demo-form-status" aria-live="polite">

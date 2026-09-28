@@ -1,17 +1,15 @@
+import { CapabilityMarquee } from "@/components/marketing/capability-marquee";
 import { CTASection } from "@/components/marketing/cta-section";
+import { FamiliesSection } from "@/components/marketing/families-section";
 import { Footer } from "@/components/marketing/footer";
 import { Header } from "@/components/marketing/header";
 import { Hero } from "@/components/marketing/hero";
-import {
-  ConnectedWorkflowSection,
-  FAQSection,
-  PricingSection,
-  SolutionsSection,
-  TrustSection,
-} from "@/components/marketing/platform-sections";
+import { CourtsSection, PaymentsSection } from "@/components/marketing/outcome-sections";
 import { ProductTour } from "@/components/marketing/product-tour";
-import { ShareWeekendSpotlight } from "@/components/marketing/share-weekend-spotlight";
+import { RevealObserver } from "@/components/marketing/reveal-observer";
+import { FAQSection, TrustSection } from "@/components/marketing/trust-faq-sections";
 import { siteUrl } from "@/lib/site";
+import "./home.css";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -32,7 +30,7 @@ const jsonLd = {
       operatingSystem: "Web",
       url: siteUrl,
       description:
-        "A connected operating platform for sports facilities and clubs, including scheduling, programs, teams, billing, communications, and family portals.",
+        "Court booking, programs, teams, recurring billing, and an ad-free family app for sports facilities and clubs.",
       publisher: { "@id": `${siteUrl}/#organization` },
     },
   ],
@@ -51,16 +49,17 @@ export default function Home() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
         />
         <Hero />
-        <ConnectedWorkflowSection />
+        <CapabilityMarquee />
+        <PaymentsSection />
+        <CourtsSection />
+        <FamiliesSection />
         <ProductTour />
-        <ShareWeekendSpotlight />
-        <SolutionsSection />
-        <PricingSection />
         <TrustSection />
         <FAQSection />
         <CTASection />
       </main>
       <Footer />
+      <RevealObserver />
     </>
   );
 }

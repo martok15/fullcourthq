@@ -7,10 +7,11 @@ const footerGroups = [
   {
     title: "Platform",
     links: [
+      ["Payments", "/#payments"],
+      ["Court booking", "/#courts"],
+      ["For families", "/#families"],
       ["Product tour", "/#product-tour"],
-      ["Connected workflows", "/#workflows"],
-      ["Who it’s for", "/#solutions"],
-      ["Pricing", "/#pricing"],
+      ["Share the weekend", "/share-the-weekend"],
     ],
   },
   {
@@ -34,7 +35,7 @@ export function Footer() {
           <Link href="/" className="footer-logo" aria-label="FullCourtHQ home">
             <BrandLockup />
           </Link>
-          <p>The operating system for modern sports facilities and clubs.</p>
+          <p>Full courts. Paid on time. Happy families.</p>
           <a className="footer-email" href={`mailto:${contactEmail}`}>
             {contactEmail}
             <ArrowUpRight aria-hidden="true" size={16} />
