@@ -11,8 +11,7 @@ import {
 } from "@/components/marketing/platform-sections";
 import { ProductTour } from "@/components/marketing/product-tour";
 import { ShareWeekendSpotlight } from "@/components/marketing/share-weekend-spotlight";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fullcourthq.com";
+import { siteUrl } from "@/lib/site";
 
 const jsonLd = {
   "@context": "https://schema.org",

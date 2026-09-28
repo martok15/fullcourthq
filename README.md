@@ -6,17 +6,14 @@ Marketing site for FullCourtHQ, the connected operating system for sports facili
 
 ```bash
 npm install
-cp .env.example .env.local
 npm run dev
 ```
 
 The app runs at `http://localhost:3000`.
 
-## Environment
+## Site URL
 
-```bash
-NEXT_PUBLIC_SITE_URL=https://fullcourthq.com
-```
+Canonical URLs, link previews, structured data, the sitemap, and shareable links always use `https://fullcourthq.com`, set in `src/lib/site.ts`. It is not read from the environment, so local and preview builds cannot publish `localhost` or preview URLs.
 
 Demo calls to action use a direct `mailto:` link to `info@fullcourthq.com`.
 

@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Barlow_Semi_Condensed, IBM_Plex_Mono, Source_Sans_3, Space_Grotesk } from "next/font/google";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fullcourthq.com";
 const title = "FullCourtHQ | Sports Facility & Club Operating System";
 const description =
   "Run facility scheduling, programs, teams, billing, communications, and the family experience from one connected sports operations platform.";

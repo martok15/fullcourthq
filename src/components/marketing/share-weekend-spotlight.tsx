@@ -3,10 +3,7 @@ import { ArrowRight } from "lucide-react";
 
 import { CopyLinkButton } from "@/components/marketing/copy-link-button";
 import { ShareWeekendVideo } from "@/components/marketing/share-weekend-video";
-
-// Pinned to production: staff paste this straight into messages to families, so it must never
-// pick up a local or preview NEXT_PUBLIC_SITE_URL.
-const familyPageUrl = "https://fullcourthq.com/share-the-weekend";
+import { siteUrl } from "@/lib/site";
 
 const facts = [
   "A weekend, tournament, or single game in one link",
@@ -37,7 +34,7 @@ export function ShareWeekendSpotlight() {
             <p>
               <strong>Tell your families.</strong> Send them this link in your next team message.
             </p>
-            <CopyLinkButton url={familyPageUrl} label="Link to the Share the weekend page for families" />
+            <CopyLinkButton url={`${siteUrl}/share-the-weekend`} label="Link to the Share the weekend page for families" />
             <Link className="weekend-spotlight__page-link" href="/share-the-weekend">
               Open the family page <ArrowRight aria-hidden="true" size={17} />
             </Link>
