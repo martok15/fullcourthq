@@ -10,8 +10,8 @@ import {
   TrustSection,
 } from "@/components/marketing/platform-sections";
 import { ProductTour } from "@/components/marketing/product-tour";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fullcourthq.com";
+import { ShareWeekendSpotlight } from "@/components/marketing/share-weekend-spotlight";
+import { siteUrl } from "@/lib/site";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -53,6 +53,7 @@ export default function Home() {
         <Hero />
         <ConnectedWorkflowSection />
         <ProductTour />
+        <ShareWeekendSpotlight />
         <SolutionsSection />
         <PricingSection />
         <TrustSection />

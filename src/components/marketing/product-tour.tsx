@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
 
@@ -11,6 +13,10 @@ type ProductArea = {
   title: string;
   description: string;
   outcomes: string[];
+  link?: {
+    href: string;
+    label: string;
+  };
   screens: Array<{
     src: string;
     alt: string;
@@ -121,6 +127,10 @@ const productAreas: ProductArea[] = [
       "Bring team events and training into one schedule",
       "Keep essential household tools within easy reach",
     ],
+    link: {
+      href: "#share-the-weekend",
+      label: "New: Share the weekend with family",
+    },
     screens: [
       {
         src: "/product/rdc-parent-dashboard.png",
@@ -231,6 +241,13 @@ export function ProductTour() {
                 </li>
               ))}
             </ul>
+
+            {activeArea.link ? (
+              <Link className="tour-panel-link" href={activeArea.link.href}>
+                {activeArea.link.label}
+                <ArrowRight aria-hidden="true" size={17} />
+              </Link>
+            ) : null}
           </div>
 
           <div
