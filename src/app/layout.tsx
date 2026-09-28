@@ -1,36 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow_Semi_Condensed, IBM_Plex_Mono, Source_Sans_3, Space_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
-const title = "FullCourtHQ | Sports Facility & Club Operating System";
+const title = "FullCourtHQ | Full courts. Paid on time.";
 const description =
-  "Run facility scheduling, programs, teams, billing, communications, and the family experience from one connected sports operations platform.";
+  "Court booking, programs, teams, and billing for sports facilities and clubs, with an ad-free app families actually like.";
 const previewImage = "/brand/fullcourthq-og-logo.png";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const geist = Geist({
+  variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
 });
 
-const sourceSans = Source_Sans_3({
-  variable: "--font-source-sans",
+const geistMono = Geist_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
-  display: "swap",
-});
-
-const barlowSemiCondensed = Barlow_Semi_Condensed({
-  variable: "--font-barlow-semi-condensed",
-  subsets: ["latin"],
-  weight: ["600", "700"],
-  display: "swap",
-});
-
-const ibmPlexMono = IBM_Plex_Mono({
-  variable: "--font-ibm-plex-mono",
-  subsets: ["latin"],
-  weight: ["500", "600"],
   display: "swap",
 });
 
@@ -97,7 +83,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${sourceSans.variable} ${barlowSemiCondensed.variable} ${ibmPlexMono.variable}`}
+      className={`${geist.variable} ${geistMono.variable}`}
     >
       <body>{children}</body>
     </html>

@@ -1,21 +1,29 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { BrandLockup } from "@/components/marketing/brand-lockup";
 
 const navItems = [
-  { label: "Operating flow", href: "#workflows" },
-  { label: "Product tour", href: "#product-tour" },
-  { label: "Who it’s for", href: "#solutions" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Trust", href: "#trust" },
+  { label: "Payments", href: "#payments" },
+  { label: "Courts", href: "#courts" },
+  { label: "Families", href: "#families" },
+  { label: "Product", href: "#product-tour" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > 8);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -34,13 +42,13 @@ export function Header() {
   const closeMenu = () => setOpen(false);
 
   return (
-    <header className="ops-header">
-      <div className="site-shell ops-header__bar">
-        <Link className="ops-header__brand" href="/" aria-label="FullCourtHQ home" onClick={closeMenu}>
+    <header className="site-header" data-scrolled={scrolled || open}>
+      <div className="site-shell site-header__bar">
+        <Link className="site-header__brand" href="/" aria-label="FullCourtHQ home" onClick={closeMenu}>
           <BrandLockup />
         </Link>
 
-        <nav className="ops-header__nav" aria-label="Main navigation">
+        <nav className="site-header__nav" aria-label="Main navigation">
           {navItems.map((item) => (
             <Link key={item.href} href={item.href}>
               {item.label}
@@ -48,14 +56,14 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="ops-header__actions">
-          <Link className="ops-button ops-button--primary ops-header__cta" href="#demo">
+        <div className="site-header__actions">
+          <Link className="btn btn--primary btn--sm site-header__cta" href="#demo">
             Book a walkthrough
-            <ArrowUpRight aria-hidden="true" size={17} strokeWidth={2} />
+            <ArrowRight aria-hidden="true" size={16} />
           </Link>
           <button
             ref={menuButtonRef}
-            className="ops-header__menu-button"
+            className="site-header__menu-button"
             type="button"
             aria-label={open ? "Close navigation menu" : "Open navigation menu"}
             aria-controls="mobile-navigation"
@@ -67,21 +75,16 @@ export function Header() {
         </div>
       </div>
 
-      <div className="ops-header__mobile-wrap" data-open={open} aria-hidden={!open} inert={open ? undefined : true}>
-        <nav id="mobile-navigation" className="ops-header__mobile-nav site-shell" aria-label="Mobile navigation">
+      <div className="site-header__mobile" data-open={open} aria-hidden={!open} inert={open ? undefined : true}>
+        <nav id="mobile-navigation" className="site-shell site-header__mobile-nav" aria-label="Mobile navigation">
           {navItems.map((item) => (
             <Link key={item.href} href={item.href} onClick={closeMenu} tabIndex={open ? 0 : -1}>
               {item.label}
             </Link>
           ))}
-          <Link
-            className="ops-button ops-button--primary"
-            href="#demo"
-            onClick={closeMenu}
-            tabIndex={open ? 0 : -1}
-          >
+          <Link className="btn btn--primary" href="#demo" onClick={closeMenu} tabIndex={open ? 0 : -1}>
             Book a walkthrough
-            <ArrowUpRight aria-hidden="true" size={17} />
+            <ArrowRight aria-hidden="true" size={17} />
           </Link>
         </nav>
       </div>

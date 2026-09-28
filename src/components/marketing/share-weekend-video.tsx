@@ -8,6 +8,9 @@ import type { MouseEvent } from "react";
 // Keep in sync with the portrait breakpoint for `.weekend-video` in globals.css.
 const portraitQuery = "(max-width: 640px)";
 
+// A silent 9-second excerpt that loops behind the play button until someone starts the full video.
+const teaserSrc = "/video/share-the-weekend-teaser.mp4";
+
 const renditions = {
   landscape: {
     src: "/video/share-the-weekend-landscape.mp4",
@@ -33,10 +36,13 @@ type ShareWeekendVideoProps = {
   sizes: string;
   /** Load the poster eagerly when the video is the page's main content. */
   priority?: boolean;
+  /** Loop a silent excerpt behind the play button on wide screens while the video is in view. */
+  teaser?: boolean;
 };
 
-export function ShareWeekendVideo({ className, sizes, priority = false }: ShareWeekendVideoProps) {
+export function ShareWeekendVideo({ className, sizes, priority = false, teaser = false }: ShareWeekendVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const teaserRef = useRef<HTMLVideoElement>(null);
   const [orientation, setOrientation] = useState<Orientation | null>(null);
 
   const {
@@ -57,6 +63,35 @@ export function ShareWeekendVideo({ className, sizes, priority = false }: ShareW
     loading: priority ? "eager" : "lazy",
     fetchPriority: priority ? "high" : undefined,
   });
+
+  // Only load the teaser for wide screens and viewers who haven't asked for reduced motion, and only
+  // play it while it's on screen.
+  useEffect(() => {
+    if (!teaser || orientation) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const narrow = window.matchMedia(portraitQuery);
+    if (reduceMotion.matches || narrow.matches || !("IntersectionObserver" in window)) return;
+
+    const clip = teaserRef.current;
+    const frame = clip?.parentElement;
+    if (!clip || !frame) return;
+
+    // Setting the source here, rather than in markup, keeps phones and reduced-motion viewers from
+    // downloading it at all.
+    clip.src = teaserSrc;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) clip.play().catch(() => {});
+        else clip.pause();
+      },
+      { threshold: 0.25 },
+    );
+    observer.observe(frame);
+    return () => {
+      observer.disconnect();
+      clip.pause();
+    };
+  }, [teaser, orientation]);
 
   // The play link unmounts once playback starts, so hand keyboard focus to the player.
   useEffect(() => {
@@ -100,6 +135,19 @@ export function ShareWeekendVideo({ className, sizes, priority = false }: ShareW
             <source media={portraitQuery} srcSet={portraitSrcSet} width={renditions.portrait.width} height={renditions.portrait.height} />
             <img {...posterProps} alt="" className="weekend-video__poster" />
           </picture>
+          {teaser ? (
+            <video
+              ref={teaserRef}
+              className="weekend-video__teaser"
+              muted
+              loop
+              playsInline
+              preload="none"
+              aria-hidden="true"
+              tabIndex={-1}
+              onPlaying={(event) => (event.currentTarget.dataset.playing = "true")}
+            />
+          ) : null}
           <span className="weekend-video__play" aria-hidden="true">
             <span className="weekend-video__play-icon">
               <Play size={18} fill="currentColor" strokeWidth={0} />
