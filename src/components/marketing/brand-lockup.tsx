@@ -3,7 +3,7 @@ import Image from "next/image";
 export function BrandLockup({ compact = false }: { compact?: boolean }) {
   return (
     <span className={`brand-lockup${compact ? " brand-lockup--compact" : ""}`}>
-      <Image src="/brand/fullcourthq-icon-rounded.svg" alt="" width={256} height={256} sizes="44px" />
+      <Image src="/brand/fullcourthq-rounded-icon.png" alt="" width={640} height={640} sizes="44px" />
       <span aria-hidden="true">
         FullCourt<b>HQ</b>
       </span>
