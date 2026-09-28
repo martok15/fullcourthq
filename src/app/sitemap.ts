@@ -6,6 +6,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     { url: siteUrl, lastModified: updated, changeFrequency: "weekly", priority: 1 },
+    {
+      url: `${siteUrl}/share-the-weekend`,
+      lastModified: updated,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
     { url: `${siteUrl}/security`, lastModified: updated, changeFrequency: "monthly", priority: 0.5 },
     { url: `${siteUrl}/privacy`, lastModified: updated, changeFrequency: "monthly", priority: 0.4 },
     {
