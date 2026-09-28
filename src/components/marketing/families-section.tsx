@@ -64,7 +64,7 @@ export function FamiliesSection() {
             })}
           </ul>
 
-          <figure className="families__video" data-reveal>
+          <figure className="families__video" id="share-the-weekend" data-reveal>
             <ShareWeekendVideo sizes="(max-width: 980px) 92vw, 840px" teaser />
             <figcaption>
               <span className="hero__announce-tag">New</span>

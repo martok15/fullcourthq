@@ -8,6 +8,7 @@ import type { DemoRequest } from "@/lib/demo-request";
 //   RESEND_API_KEY     required; a secret on the Cloudflare Worker, or in .env.local for local testing
 //   DEMO_REQUEST_TO    optional; where requests go, defaults to the public contact address
 //   DEMO_REQUEST_FROM  optional; must be on a domain verified in Resend
+// Sends are throttled by the DEMO_REQUEST_PER_IP and DEMO_REQUEST_GLOBAL rate limiters in wrangler.jsonc.
 const defaultFrom = "FullCourtHQ Website <website@fullcourthq.com>";
 
 export async function POST(request: Request) {
@@ -27,6 +28,13 @@ export async function POST(request: Request) {
   const errors = validateDemoRequest(demoRequest);
   if (Object.keys(errors).length > 0) {
     return Response.json({ error: "A few details still need your attention.", errors }, { status: 400 });
+  }
+
+  if (await isRateLimited(request)) {
+    return Response.json(
+      { error: `You’ve sent a few requests in a row. Please wait a minute and try again, or email ${contactEmail}.` },
+      { status: 429 },
+    );
   }
 
   const apiKey = await readEnv("RESEND_API_KEY");
@@ -61,17 +69,40 @@ export async function POST(request: Request) {
 
 const notSentMessage = `We couldn’t send your request just now. Please email ${contactEmail} and we’ll get right back to you.`;
 
-/** Worker secrets live on the Cloudflare env; `next dev` and `next start` read .env.local instead. */
-async function readEnv(name: string) {
-  let value: unknown;
+type RateLimiter = { limit(options: { key: string }): Promise<{ success: boolean }> };
+
+/** The Worker's bindings and secrets (proxied locally by OpenNext), or null outside a Cloudflare context. */
+async function workerEnv(): Promise<Record<string, unknown> | null> {
   try {
     const { env } = await getCloudflareContext({ async: true });
-    value = (env as unknown as Record<string, unknown>)[name];
+    return env as unknown as Record<string, unknown>;
   } catch {
-    // Not running inside the Worker.
+    return null;
   }
+}
+
+/** Worker secrets live on the Cloudflare env; `next dev` and `next start` read .env.local instead. */
+async function readEnv(name: string) {
+  let value = (await workerEnv())?.[name];
   if (typeof value !== "string" || !value.trim()) value = process.env[name];
   return typeof value === "string" && value.trim() ? value.trim() : null;
+}
+
+/** Limits each IP to a few sends a minute, with a site-wide ceiling to protect the Resend quota. */
+async function isRateLimited(request: Request) {
+  const env = await workerEnv();
+  if (!env) return false; // No Cloudflare context, so no limiter to ask.
+
+  const perIp = env.DEMO_REQUEST_PER_IP as RateLimiter | undefined;
+  const global = env.DEMO_REQUEST_GLOBAL as RateLimiter | undefined;
+  if (!perIp || !global) {
+    console.error("Demo request rate limiters are not bound; check ratelimits in wrangler.jsonc");
+    return false;
+  }
+
+  const ip = request.headers.get("CF-Connecting-IP") ?? "unknown";
+  if (!(await perIp.limit({ key: ip })).success) return true;
+  return !(await global.limit({ key: "all" })).success;
 }
 
 function rows(request: DemoRequest): Array<[string, string]> {

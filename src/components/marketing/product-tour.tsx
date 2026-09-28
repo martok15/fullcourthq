@@ -128,7 +128,7 @@ const productAreas: ProductArea[] = [
       "Keep essential household tools within easy reach",
     ],
     link: {
-      href: "#share-the-weekend",
+      href: "#families",
       label: "See what’s new for families",
     },
     screens: [
