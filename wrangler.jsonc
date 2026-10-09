@@ -19,6 +19,10 @@
   "images": {
     "binding": "IMAGES"
   },
+  "vars": {
+    "RESEND_PARENT_TOPIC_ID": "d4eecf4a-db85-436e-a5f2-a63fdbb71ab6",
+    "RESEND_STAFF_TOPIC_ID": "0f50f68a-ff7b-44f6-8bcd-5764da82944d"
+  },
   // Throttles /api/demo-request so the walkthrough form can't be used to flood the inbox or
   // exhaust the Resend quota. namespace_id is any integer string unique within the account.
   "ratelimits": [
@@ -31,6 +35,26 @@
       "name": "DEMO_REQUEST_GLOBAL",
       "namespace_id": "7002",
       "simple": { "limit": 20, "period": 60 }
+    },
+    {
+      "name": "NEWSLETTER_SIGNUP_PER_IP",
+      "namespace_id": "7101",
+      "simple": { "limit": 5, "period": 60 }
+    },
+    {
+      "name": "NEWSLETTER_SIGNUP_PER_EMAIL",
+      "namespace_id": "7102",
+      "simple": { "limit": 2, "period": 60 }
+    },
+    {
+      "name": "NEWSLETTER_SIGNUP_GLOBAL",
+      "namespace_id": "7103",
+      "simple": { "limit": 50, "period": 60 }
+    },
+    {
+      "name": "NEWSLETTER_PREFERENCES_PER_IP",
+      "namespace_id": "7104",
+      "simple": { "limit": 8, "period": 60 }
     }
   ],
   "observability": {

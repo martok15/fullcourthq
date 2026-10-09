@@ -12,6 +12,7 @@ const footerGroups = [
       ["For families", "/#families"],
       ["Product tour", "/#product-tour"],
       ["Share the weekend", "/share-the-weekend"],
+      ["Email updates", "/updates"],
     ],
   },
   {
