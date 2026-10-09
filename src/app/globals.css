@@ -746,6 +746,35 @@ section[id] {
   margin-inline: auto;
 }
 
+@media (min-width: 861px) {
+  .weekend-page__header-bar {
+    min-height: 64px;
+  }
+
+  .weekend-page__hero {
+    padding-top: 22px;
+  }
+
+  .weekend-page__intro {
+    margin-bottom: 20px;
+  }
+
+  .weekend-page__intro h1 {
+    margin-bottom: 14px;
+    font-size: clamp(2.7rem, 5.2vw, 3.8rem);
+  }
+
+  .weekend-page__intro > p:last-child {
+    max-width: 650px;
+    font-size: clamp(1rem, 1.35vw, 1.12rem);
+    line-height: 1.45;
+  }
+
+  .weekend-page__video {
+    max-width: min(1100px, calc((100svh - 320px) * 48 / 25), calc(100vw - 30px));
+  }
+}
+
 .weekend-page__steps,
 .weekend-page__details {
   padding-bottom: 96px;
